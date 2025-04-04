@@ -1,0 +1,61 @@
+﻿@model IEnumerable<VirtualLibrary.Models.Book>
+
+@{
+    ViewData["Title"] = "Welcome to Virtual Library";
+}
+
+<style>
+    .hero {
+        background-image: url('/images/library-background.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 350px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-shadow: 1px 1px 3px #000;
+    }
+</style>
+
+<div class="hero">
+    <h1 class="display-4 text-center">Welcome to Your Virtual Library</h1>
+</div>
+
+<div class="container mt-5">
+    <p class="lead text-center">
+        Explore and download digital books. All uploaded by admins, available for free access in PDF format.
+    </p>
+
+    <h3 class="mt-5 mb-3">📚 Books added this month</h3>
+
+    @if (!Model.Any())
+    {
+        <p>No books added this month yet.</p>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var book in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        @if (!string.IsNullOrEmpty(book.CoverImagePath))
+                        {
+                            <img src="@book.CoverImagePath" class="card-img-top" style="height: 250px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <img src="/images/placeholder-cover.jpg" class="card-img-top" />
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-text">@book.Author</p>
+                            <a href="/Books/Details/@book.Id" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

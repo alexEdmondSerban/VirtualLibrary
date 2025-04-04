@@ -1,0 +1,38 @@
+﻿@model VirtualLibrary.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<h2>@Model.Title</h2>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.CoverImagePath))
+        {
+            <img src="@Model.CoverImagePath" alt="Cover" class="img-fluid rounded shadow" />
+        }
+        else
+        {
+            <div class="text-muted">No cover available</div>
+        }
+    </div>
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-3">Author</dt>
+            <dd class="col-sm-9">@Model.Author</dd>
+
+            <dt class="col-sm-3">Genre</dt>
+            <dd class="col-sm-9">@Model.Genre</dd>
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
+            <dt class="col-sm-3">Uploaded At</dt>
+            <dd class="col-sm-9">@Model.UploadDate.ToString("yyyy-MM-dd")</dd>
+        </dl>
+
+        <a href="@Model.FilePath" class="btn btn-primary me-2" download>Download PDF</a>
+        <a href="/Books" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
