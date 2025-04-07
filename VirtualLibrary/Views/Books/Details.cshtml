@@ -4,35 +4,52 @@
     ViewData["Title"] = "Book Details";
 }
 
-<h2>@Model.Title</h2>
+<div class="container mt-5">
 
-<div class="row mt-4">
-    <div class="col-md-4">
-        @if (!string.IsNullOrEmpty(Model.CoverImagePath))
-        {
+    <div class="row">
+        <div class="col-md-4">
+            @if (!string.IsNullOrEmpty(Model.CoverImagePath))
+            {
             <img src="@Model.CoverImagePath" alt="Cover" class="img-fluid rounded shadow" />
-        }
-        else
-        {
-            <div class="text-muted">No cover available</div>
-        }
+            }
+            else
+            {
+            <img src="/images/placeholder-cover.jpg" alt="No Cover" class="img-fluid rounded shadow" />
+            }
+        </div>
+
+        <div class="col-md-8">
+            <h2 class="mb-3">@Model.Title</h2>
+
+            <dl class="row">
+                <dt class="col-sm-3">Author</dt>
+                <dd class="col-sm-9">@Model.Author</dd>
+
+                <dt class="col-sm-3">Genre</dt>
+                <dd class="col-sm-9">@Model.Genre</dd>
+
+                <dt class="col-sm-3">Description</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+
+                <dt class="col-sm-3">Uploaded At</dt>
+                <dd class="col-sm-9">@Model.UploadDate.ToString("yyyy-MM-dd")</dd>
+            </dl>
+
+            <div class="d-flex gap-2 flex-wrap mt-4">
+                <a href="@Model.FilePath" class="btn btn-primary" download>Download PDF</a>
+                <a href="#pdfReader" class="btn btn-outline-secondary">Read Online</a>
+                <a href="/Books" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-        <dl class="row">
-            <dt class="col-sm-3">Author</dt>
-            <dd class="col-sm-9">@Model.Author</dd>
 
-            <dt class="col-sm-3">Genre</dt>
-            <dd class="col-sm-9">@Model.Genre</dd>
+    <hr class="my-5" />
 
-            <dt class="col-sm-3">Description</dt>
-            <dd class="col-sm-9">@Model.Description</dd>
-
-            <dt class="col-sm-3">Uploaded At</dt>
-            <dd class="col-sm-9">@Model.UploadDate.ToString("yyyy-MM-dd")</dd>
-        </dl>
-
-        <a href="@Model.FilePath" class="btn btn-primary me-2" download>Download PDF</a>
-        <a href="/Books" class="btn btn-secondary">Back to List</a>
+    <div id="pdfReader" class="mt-5">
+        <h4 class="mb-3">📖 Read</h4>
+        <iframe src="@Model.FilePath" width="100%" height="700px" style="border: 1px solid #ccc; border-radius: 8px;">
+            This browser does not support PDFs. Please download the file instead.
+        </iframe>
     </div>
+
 </div>
